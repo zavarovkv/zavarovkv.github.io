@@ -5,16 +5,16 @@
     "version" : "2.0.0",
     "title" : "Партнерский API goods"
   },
-  "host" : "virtserver.swaggerhub.com",
-  "basePath" : "/zavarovkv/goods/1.0.0",
+  "host" : "partner.goods.ru",
+  "basePath" : "/api",
   "schemes" : [ "https" ],
   "paths" : {
-    "/inventory" : {
+    "/new" : {
       "get" : {
-        "tags" : [ "developers" ],
-        "summary" : "searches inventory",
-        "description" : "By passing in the appropriate options, you can search for\navailable inventory in the system\n",
-        "operationId" : "searchInventory",
+        "tags" : [ "Обработка заказов" ],
+        "summary" : "создание заказа",
+        "description" : "Метод вызывается goods после оформления нового заказа покупателем на сайте. Предназначен для передачи созданного заказа в систему обработки заказов продавца. \nИнформация передаваемая продавцу по заказу включает: \n- детальную информацию по каждой позиции в заказе; \n- информацию для печати маркировочного листа ([подробнее о маркировочном листе]); \n- максимально возможный срок отгрузки заказа.\n",
+        "operationId" : "new",
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "searchString",
@@ -56,7 +56,7 @@
         }
       },
       "post" : {
-        "tags" : [ "admins" ],
+        "tags" : [ "Обработка заказов" ],
         "summary" : "adds an inventory item",
         "description" : "Adds an item to the system",
         "operationId" : "addInventory",
