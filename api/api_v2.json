@@ -71,8 +71,60 @@ paths:
           name: body
           schema:
             type: object
-            parameters:
-             - $ref: "#/definitions/OrderNewObject"
+            properties:
+              data:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: Аутентификационный токен
+                  shopments:
+                    type: array
+                    description: Список заказов
+                    items:
+                      type: object
+                      properties:
+                        shipmentId:
+                          type: string
+                          description: Уникальный идентификатор заказа Goods
+                        shipmentDate:
+                          type: string
+                          description: Дата и время создания заказа
+                        items:
+                          type: array
+                          description: Список позиций в заказе
+                          items: 
+                            type: object
+                            properties:
+                              itemIndex:
+                                type: string
+                                description: Уникальный номер позиции в рамках заказа, нумерация начинается с 0
+                              offerId:
+                                type: string
+                                description: Идентификатор оффера (товарного предложения) продавца передаваемый в прайс-листе в параметре id элемента <offer>
+                              price:
+                                type: string
+                                description: Цена позиции из прайс-листа продавца
+                              finalPrice:
+                                type: string
+                                description: Цена позиции за вычетом всех скидок
+                              discounts:
+                                type: object
+                                description: Список примененных скидок к текущей позиции
+                                properties:
+                                  discountType:
+                                    type: string
+                                    description: Тип скидки. Возможные значения: LOY - Программа Лояльности (снижение цены на товар за счет бонусных рублей); BPG - Гарантия Лучшей Цены (снижение цены на товар до минимльной на рынке)
+                                  discountAmount:
+                                    type: string
+                                    description: Сумма скидки
+                          label:
+                            type: object
+                            description: Информация для печати маркировочного листа
+                            properties:
+                              deliveryId:
+                                type: string
+                                description: Индентификатор доставки. Печатается на маркировочном листе
 
       responses:
         201:
@@ -1454,12 +1506,21 @@ definitions:
   # -------------------------------
   # Orer/new definitions
   # -------------------------------
-  OrderNewObject:
+  OrderNewData:
     type: object
     properties:
-      name:
+      token:
         type: string
-        description: desk
+        description: Токен
+      shopments:
+        type: array
+        description: Список заказов
+        items:
+          type: object
+          properties:
+            shipmentId:
+              type: string
+              description: Идентификатор заказа
 
   # -------------------------------
   # Orer definitions
