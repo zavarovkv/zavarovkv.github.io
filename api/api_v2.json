@@ -1,37 +1,145 @@
 {
-  "openapi" : "3.0.0",
+  "swagger" : "2.0",
   "info" : {
-    "title" : "Sample API",
-    "description" : "Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.",
-    "version" : "2.0.0-oas3"
+    "description" : "Партнерский API предназначен для автоматизированного обмена данными сторонних сервисов и goods",
+    "version" : "2.0.0",
+    "title" : "Партнерский API goods"
   },
-  "servers" : [ {
-    "url" : "http://api.example.com/v1",
-    "description" : "Optional server description, e.g. Main (production) server"
-  }, {
-    "url" : "http://staging-api.example.com",
-    "description" : "Optional server description, e.g. Internal staging server for testing"
-  } ],
+  "host" : "partner.goods.ru",
+  "basePath" : "/api",
+  "schemes" : [ "https" ],
   "paths" : {
-    "/users" : {
+    "/new" : {
       "get" : {
-        "summary" : "Returns a list of users.",
-        "description" : "Optional extended description in CommonMark or HTML.",
+        "tags" : [ "Обработка заказов" ],
+        "summary" : "создание заказа",
+        "description" : "Метод вызывается goods после оформления нового заказа покупателем на сайте. Предназначен для передачи созданного заказа в систему обработки заказов продавца. \nИнформация передаваемая продавцу по заказу включает: \n- детальную информацию по каждой позиции в заказе; \n- информацию для печати маркировочного листа ([подробнее о маркировочном листе]); \n- максимально возможный срок отгрузки заказа.\n",
+        "operationId" : "new",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "searchString",
+          "in" : "query",
+          "description" : "pass an optional search string for looking up inventory",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "skip",
+          "in" : "query",
+          "description" : "number of records to skip for pagination",
+          "required" : false,
+          "type" : "integer",
+          "minimum" : 0,
+          "format" : "int32"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "maximum number of records to return",
+          "required" : false,
+          "type" : "integer",
+          "maximum" : 50.0,
+          "minimum" : 0,
+          "format" : "int32"
+        } ],
         "responses" : {
           "200" : {
-            "description" : "A JSON array of user names",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "type" : "string"
-                  }
-                }
+            "description" : "search results matching criteria",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/InventoryItem"
               }
             }
+          },
+          "400" : {
+            "description" : "bad input parameter"
           }
         }
+      },
+      "post" : {
+        "tags" : [ "Обработка заказов" ],
+        "summary" : "adds an inventory item",
+        "description" : "Adds an item to the system",
+        "operationId" : "addInventory",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "inventoryItem",
+          "description" : "Inventory item to add",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/InventoryItem"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "item created"
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "409" : {
+            "description" : "an existing item already exists"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "InventoryItem" : {
+      "type" : "object",
+      "required" : [ "id", "manufacturer", "name", "releaseDate" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "format" : "uuid",
+          "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Widget Adapter"
+        },
+        "releaseDate" : {
+          "type" : "string",
+          "format" : "int32",
+          "example" : "2016-08-29T09:12:33.001Z"
+        },
+        "manufacturer" : {
+          "$ref" : "#/definitions/Manufacturer"
+        }
+      },
+      "example" : {
+        "releaseDate" : "2016-08-29T09:12:33.001Z",
+        "name" : "Widget Adapter",
+        "id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
+        "manufacturer" : {
+          "phone" : "408-867-5309",
+          "name" : "ACME Corporation",
+          "homePage" : "https://www.acme-corp.com"
+        }
+      }
+    },
+    "Manufacturer" : {
+      "required" : [ "name" ],
+      "properties" : {
+        "name" : {
+          "type" : "string",
+          "example" : "ACME Corporation"
+        },
+        "homePage" : {
+          "type" : "string",
+          "format" : "url",
+          "example" : "https://www.acme-corp.com"
+        },
+        "phone" : {
+          "type" : "string",
+          "example" : "408-867-5309"
+        }
+      },
+      "example" : {
+        "phone" : "408-867-5309",
+        "name" : "ACME Corporation",
+        "homePage" : "https://www.acme-corp.com"
       }
     }
   }
