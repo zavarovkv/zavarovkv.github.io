@@ -7,11 +7,7 @@ info:
     email: konstantin.zavarov@goods.ru
     url: https://goods.ru
 
-servers:
-  - url: https://partner.goods.ru
-    description: Боевой сервер (использует живые данные)
-  - url: https://test-partner.goods.ru
-    description: Тестовый сервер (использует тестовые данные)
+host: partner.goods.ru
 
 basePath: /api/market/v2/orderService/
 schemes:
@@ -20,7 +16,6 @@ consumes:
   - application/json
 produces:
   - application/json
-
 
 tags:
   - name: Введение
@@ -226,8 +221,8 @@ paths:
                               type: string
                               description: Максимально возможный срок на отгрузку заказа продавцом. Если заказ НЕ будет отгружен до указанного срока, то он считается отмененным продавцом (взымается штрафная комиссия)
                               example: "2017-07-26T15:48:00+03:00"
-                  responses:
-                    200:
+      responses:
+        200:
 
   /orders/{id}:
     get:
