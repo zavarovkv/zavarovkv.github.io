@@ -120,6 +120,7 @@ paths:
                   token:
                     type: string
                     description: Аутентификационный токен
+                    example: 53aa3d6a-baf6-4787-8e8c-b54bc2609b8d
                   shopments:
                     type: array
                     description: Список заказов
@@ -203,10 +204,6 @@ paths:
                             shippingDate:
                               type: string
                               description: Максимально возможный срок на отгрузку заказа продавцом. Если заказ НЕ будет отгружен до указанного срока, то он считается отмененным продавцом (взымается штрафная комиссия)
-          examples:
-            application/json:
-              data:
-                token: d41d8cd98f00b204e9800998ecf8427e
 
   /orders/{id}:
     get:
