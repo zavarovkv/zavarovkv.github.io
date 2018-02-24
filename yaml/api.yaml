@@ -255,7 +255,7 @@ paths:
                 properties:
                   name:
                     type: string
-                    description: ffasfas
+                    description: ffash
 
 
   /orders/{id}:
