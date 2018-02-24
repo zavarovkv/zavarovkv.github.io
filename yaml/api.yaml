@@ -411,7 +411,7 @@ paths:
                                       example: "7*73606159*1"
       responses:
         200:
-          description: Информация о комплектации зафиксирована goods
+          description: Информация о комплектации успешно обработана
           schema:
             type: object
             properties:
@@ -493,7 +493,7 @@ paths:
                               example: "2017-07-26T15:48:00+03:00"
       responses:
         200:
-          description: Информация об отгрузке зафиксирована goods
+          description: Информация об отгрузке успешно обработана
           schema:
             type: object
             properties:
@@ -622,5 +622,14 @@ paths:
                           | `TWICE_ORDER`              | Два заказа на один и и тот же товар, дубль  |
                           | `NOT_TIME_FOR_SHIPPING`    | Не достаточно времени на отгрузку           |
                           | `FRAUD_ORDER`              | Фродовый заказ                              |
-
+      responses:
+        200:
+          description: Информация об отмене успешно обработана
+          schema:
+            type: object
+            properties:
+              success:
+                type: integer
+                description: Результат выполнения операции
+                example: 1
 
