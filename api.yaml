@@ -106,7 +106,6 @@ paths:
                 description: Блок вспомогательных данных
               data:
                 type: object
-                required: true
                 description: Блок информационных данных
                 properties:
                   token:
@@ -131,7 +130,6 @@ paths:
                           description: Дата и время создания заказа
                         items:
                           type: array
-                          required: true
                           description: Список позиций в заказе
                           items: 
                             type: object
@@ -218,7 +216,6 @@ paths:
               examples:
                 application/json:
                   data:
-                    type: object
                     attributes:
                       token: 53aa3d6a-baf6-4787-8e8c-b54bc2609b8d
 
