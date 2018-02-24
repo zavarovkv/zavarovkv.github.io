@@ -412,7 +412,7 @@ paths:
                                       example: "7*73606159*1"
       responses:
         200:
-          description: Заказ успешно подтвержден
+          description: Информация о комплектации принята в goods
           schema:
             type: object
             properties:
@@ -457,8 +457,8 @@ paths:
                       type: object
                       required:
                         - shipmentId
-                        - orderCode
-                        - items
+                        - boxes
+                        - shipping
                       properties:
                         shipmentId:
                           type: string
@@ -494,7 +494,7 @@ paths:
                               example: "2017-07-26T15:48:00+03:00"
       responses:
         200:
-          description: Заказ успешно подтвержден
+          description: Информация об отгрузке зафиксирована в goods
           schema:
             type: object
             properties:
@@ -502,3 +502,56 @@ paths:
                 type: integer
                 description: Результат выполнения операции
                 example: 1
+
+  /order/cancel:
+    post:
+      tags:
+        - Управление заказами
+      summary: Отмена заказа покупателем
+      description: |
+        __Метод вызывается goods__, сообщает продавцу об отмене заказа покупателем.
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            required:
+              - meta
+              - data
+            properties:
+              meta:
+                type: object
+                description: Блок вспомогательных данных
+              data:
+                type: object
+                description: Блок информационных данных
+                required:
+                  - shipments
+                properties:
+                  shipments:
+                    type: array
+                    description: Список заказов
+                    required:
+                      - items
+                    items:
+                      type: object
+                      required:
+                        - shipmentId
+                        - items
+                      properties:
+                        shipmentId:
+                          type: string
+                          description: Уникальный идентификатор заказа Goods
+                          example: "81234567890"
+                        items:
+                          type: array
+                          description: Список позиций в заказе
+                          items:
+                            type: object
+                            required:
+                              - itemIndex
+                            properties:
+                              itemIndex:
+                                type: string
+                                description:  Уникальный номер позиции в рамках заказа, нумерация начинается с 0
+
