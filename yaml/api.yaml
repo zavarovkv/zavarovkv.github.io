@@ -304,7 +304,7 @@ paths:
             type: object
             properties:
               success:
-                type: int
+                type: integer
                 description: Результат выполнения операции
                 example: 1
 
