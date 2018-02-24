@@ -307,7 +307,7 @@ paths:
                 type: integer
                 description: Результат выполнения операции
                 example: 1
-        200_:
+        201:
           description: Заказ не подтвержден
           schema:
             type: object
