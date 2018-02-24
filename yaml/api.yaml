@@ -111,8 +111,8 @@ paths:
           schema:
             type: object
             required:
-            - meta
-            - data
+              - meta
+              - data
             properties:
               meta:
                 type: object
