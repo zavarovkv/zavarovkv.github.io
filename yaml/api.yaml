@@ -223,11 +223,11 @@ paths:
                               type: string
                               required: true
                               description: Максимально возможный срок на отгрузку заказа продавцом. Если заказ НЕ будет отгружен до указанного срока, то он считается отмененным продавцом (взымается штрафная комиссия)
-              examples:
-                application/json:
-                  data:
-                    attributes:
-                      token: 53aa3d6a-baf6-4787-8e8c-b54bc2609b8d
+          examples:
+            application/json:
+              data:
+                attributes:
+                  token: 53aa3d6a-baf6-4787-8e8c-b54bc2609b8d
 
   /orders/{id}:
     get:
