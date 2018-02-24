@@ -300,13 +300,16 @@ paths:
       responses:
         200:
           description: OK
-            schema:
-              type: object
-              properties:
-                success:
-                  type: int
-                  description: Результат выполнения операции
-                  example: 1
+          parameters:
+            - in: body
+              name: body
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: int
+                    description: Результат выполнения операции
+                    example: 1
 
     put:
       tags:
