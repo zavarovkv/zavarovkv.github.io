@@ -110,6 +110,9 @@ paths:
           name: body
           schema:
             type: object
+            required:
+            - meta
+            - data
             properties:
               meta:
                 type: object
