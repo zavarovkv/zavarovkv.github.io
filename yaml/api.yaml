@@ -266,7 +266,7 @@ paths:
       responses:
         200:
           $ref: "#/responses/OrderResponse"
-        404:
+        200:
           $ref: "#/responses/NotFoundErrorResponse"
 
     put:
