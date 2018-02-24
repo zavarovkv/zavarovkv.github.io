@@ -251,23 +251,59 @@ paths:
         - Управление заказами
       summary: Подтверждение заказа
       description: |
-        `Метод вызывается goods` после оформления нового заказа покупателем на сайте. 
-        Предназначен для передачи созданного заказа в систему обработки заказов продавца.
+        `Метод вызывается продавцом` после принятия в обработку нового заказа. 
+        Ожидается в ответ на запрос order/new со стороны goods.
 
-        Информация передаваемая продавцу по заказу включает:
-        
-        * детальную информацию по каждой позиции в заказе;
-        * информацию для печати маркировочного листа ([подробнее о маркировочном листе]);
-        * максимально возможный срок отгрузки заказа.
-      
       parameters:
-        - $ref: "#/parameters/includeInOrder"
-        - $ref: "#/parameters/resourceId"
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              meta:
+                type: object
+                description: Блок вспомогательных данных
+              data:
+                type: object
+                description: Блок информационных данных
+                properties:
+                  shipments:
+                    type: array
+                    description: Список заказов
+                    items:
+                      type: object
+                      properties:
+                        shipmentId:
+                          type: string
+                          description: Уникальный идентификатор заказа Goods
+                          example: "81234567890"
+                        orderCode:
+                          type: string
+                          description: Уникальный идентификатор заказа продавца
+                          example: "45578"
+                        items:
+                          type: array
+                          description: Перечень позиций в заказа (для подтверждения)
+                          items:
+                            type: object
+                            properties:
+                              itemIndex: 
+                                type: string
+                                description: Уникальный номер позиции в рамках заказа, нумерация начинается с 0
+                                example: "1"
+                              offerId:
+                                type: string
+                                description: Идентификатор оффера (товарного предложения) продавца передаваемый в прайс-листе в параметре id элемента <offer>
+                              shippingDate: 
+                                type: string
+                                description: |
+                                  Дата отгрузки, в котороую продавец обязуется отгрузить заказ.
+                                  Дата не обязательнодолжна соответствовать дате переданной в методе order/new.
+                                  Если дата не соответствует - считается, что продавец переопределил дату отгрузки.
+                                  
       responses:
         200:
           $ref: "#/responses/OrderResponse"
-        200:
-          $ref: "#/responses/NotFoundErrorResponse"
 
     put:
       tags:
