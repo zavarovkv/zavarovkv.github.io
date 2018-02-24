@@ -328,3 +328,90 @@ paths:
                 description: Результат выполнения операции
                 example: 1
 
+  /order/packing:
+    post:
+      tags:
+        - Управление заказами
+      summary: Комплектация заказа
+      description: |
+        __Метод вызывается продавцом__ после  комплектации заказа продавцом. Сообщает goods:
+          * о скоплектованных позициях в заказе;
+          * уникальный идентификатор заказа продавца
+
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            required:
+              - meta
+              - data
+            properties:
+              meta:
+                type: object
+                description: Блок вспомогательных данных
+              data:
+                type: object
+                description: Блок информационных данных
+                required:
+                  - shipments
+                properties:
+                  shipments:
+                    type: array
+                    description: Список заказов
+                    required:
+                      - items
+                    items:
+                      type: object
+                      required:
+                        - shipmentId
+                        - orderCode
+                        - items
+                      properties:
+                        shipmentId:
+                          type: string
+                          description: Уникальный идентификатор заказа Goods
+                          example: "81234567890"
+                        orderCode:
+                          type: string
+                          description: Уникальный идентификатор заказа продавца
+                          example: "45578"
+                        items:
+                          type: array
+                          description: Перечень позиций в заказа (для подтверждения)
+                          items:
+                            type: object
+                            required:
+                              - itemIndex
+                              - shippingDate
+                            properties:
+                              itemIndex: 
+                                type: string
+                                description: Уникальный номер позиции в рамках заказа, нумерация начинается с 0
+                                example: "1"
+                              boxes:
+                                type: array
+                                description: Информация о грузовых местах
+                                items:
+                                  type: object
+                                  required:
+                                    - boxIndex
+                                    - boxCode
+                                  properties:
+                                    boxIndex:
+                                      type: string
+                                      description: Порядковый номер грузового места
+                                    boxCode:
+                                      type: string
+                                      description: Код грузового места
+      responses:
+        200:
+          description: Заказ успешно подтвержден
+          schema:
+            type: object
+            properties:
+              success:
+                type: integer
+                description: Результат выполнения операции
+                example: 1
+
