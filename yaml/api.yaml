@@ -121,11 +121,7 @@ paths:
                 type: object
                 description: Блок информационных данных
                 properties:
-                  token:
-                    type: string
-                    description: Аутентификационный токен
-                    example: "53aa3d6a-baf6-4787-8e8c-b54bc2609b8d"
-                  shopments:
+                  shipments:
                     type: array
                     description: Список заказов
                     items:
@@ -224,8 +220,6 @@ paths:
                               type: string
                               description: Максимально возможный срок на отгрузку заказа продавцом. Если заказ НЕ будет отгружен до указанного срока, то он считается отмененным продавцом (взымается штрафная комиссия)
                               example: "2017-07-26T15:48:00+03:00"
-      responses:
-        200:
 
   /orders/{id}:
     get:
