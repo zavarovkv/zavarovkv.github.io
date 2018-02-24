@@ -184,12 +184,13 @@ paths:
                                     type: string
                                     description: |
                                       Тип скидки.
-                                      
+                                      ```
                                       |    Значание    |               Описание                                                     |
                                       | :------------- | :------------------------------------------------------------------------- |
                                       | `LOY`          | Программа Лояльности (снижение цены на товар за счет бонусных рублей)      |
                                       | `BPG`          | BPG - Гарантия Лучшей Цены (снижение цены на товар до минимльной на рынке) |
                                       | `BPG20`        | аналогично BPG                                                             |
+                                    ```
                                     example: "BPG"
                                   discountAmount:
                                     type: string
@@ -412,7 +413,7 @@ paths:
                                       example: "7*73606159*1"
       responses:
         200:
-          description: Информация о комплектации принята в goods
+          description: Информация о комплектации зафиксирована goods
           schema:
             type: object
             properties:
@@ -494,7 +495,7 @@ paths:
                               example: "2017-07-26T15:48:00+03:00"
       responses:
         200:
-          description: Информация об отгрузке зафиксирована в goods
+          description: Информация об отгрузке зафиксирована goods
           schema:
             type: object
             properties:
@@ -554,4 +555,76 @@ paths:
                               itemIndex:
                                 type: string
                                 description:  Уникальный номер позиции в рамках заказа, нумерация начинается с 0
+
+  /order/reject:
+    post:
+      tags:
+        - Управление заказами
+      summary: Отмена заказа продавцом
+      description: |
+        __Метод вызывается продавцом__, сообщает goods об отмене заказа или позиций в заказе.
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            required:
+              - meta
+              - data
+            properties:
+              meta:
+                type: object
+                description: Блок вспомогательных данных
+              data:
+                type: object
+                description: Блок информационных данных
+                required:
+                  - shipments
+                properties:
+                  shipments:
+                    type: array
+                    description: Список заказов
+                    required:
+                      - items
+                    items:
+                      type: object
+                      required:
+                        - shipmentId
+                        - items
+                      properties:
+                        shipmentId:
+                          type: string
+                          description: Уникальный идентификатор заказа Goods
+                          example: "81234567890"
+                        items:
+                          type: array
+                          description: Список позиций в заказе
+                          items:
+                            type: object
+                            required:
+                              - itemIndex
+                            properties:
+                              itemIndex:
+                                type: string
+                                description:  Уникальный номер позиции в рамках заказа, нумерация начинается с 0
+                  reason:
+                    type: object
+                    description: Причина отмены
+                    properties:
+                      type:
+                        type: string
+                        description: |
+                          Код причины (из словаря)
+                          ```
+                          |    Значание                |               Описание                                                     |
+                          | :------------------------- | :------------------------------------------ |
+                          | `OUT_OF_STOCK`             | Нет товара в наличии                        |
+                          | `INCORRECT_PRICE`          | Неверная цена товара                        |
+                          | `INCORRECT_PRODUCT`        | Неверная привязка товара к модели на Goods  |
+                          | `INCORRECT_SPEC`           | Неверные характеристики товара на Goods     |
+                          | `TWICE_ORDER`              | Два заказа на один и и тот же товар, дубль  |
+                          | `NOT_TIME_FOR_SHIPPING`    | Не достаточно времени на отгрузку           |
+                          | `FRAUD_ORDER`              | Фродовый заказ                              |
+                        ```
+
 
