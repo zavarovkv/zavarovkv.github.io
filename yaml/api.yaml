@@ -6,7 +6,12 @@ info:
     name: Константин Заваров
     email: konstantin.zavarov@goods.ru
     url: https://goods.ru
-host: partner.goods.ru
+
+servers:
+  - url: https://partner.goods.ru
+    description: Боевой сервер (использует живые данные)
+  - url: https://test-partner.goods.ru
+    description: Тестовый сервер (использует тестовые данные)
 
 basePath: /api/market/v2/orderService/
 schemes:
@@ -15,6 +20,7 @@ consumes:
   - application/json
 produces:
   - application/json
+
 
 tags:
   - name: Введение
@@ -120,7 +126,7 @@ paths:
                   token:
                     type: string
                     description: Аутентификационный токен
-                    example: 53aa3d6a-baf6-4787-8e8c-b54bc2609b8d
+                    example: "53aa3d6a-baf6-4787-8e8c-b54bc2609b8d"
                   shopments:
                     type: array
                     description: Список заказов
@@ -130,10 +136,11 @@ paths:
                         shipmentId:
                           type: string
                           description: Уникальный идентификатор заказа Goods
-                          example: 894554545
+                          example: "81234567890"
                         shipmentDate:
                           type: string
                           description: Дата и время создания заказа
+                          example: "2017-07-26T15:48:00+03:00"
                         items:
                           type: array
                           description: Список позиций в заказе
@@ -143,15 +150,19 @@ paths:
                               itemIndex:
                                 type: string
                                 description: Уникальный номер позиции в рамках заказа, нумерация начинается с 0
+                                example: "1"
                               offerId:
                                 type: string
                                 description: Идентификатор оффера (товарного предложения) продавца передаваемый в прайс-листе в параметре id элемента <offer>
+                                example: "456789"
                               price:
                                 type: string
                                 description: Цена позиции из прайс-листа продавца
+                                example: "2500.0"
                               finalPrice:
                                 type: string
                                 description: Цена позиции за вычетом всех скидок
+                                example: "2250.0"
                               discounts:
                                 type: object
                                 description: Список примененных скидок к текущей позиции
@@ -166,10 +177,11 @@ paths:
                                       | `LOY`          | Программа Лояльности (снижение цены на товар за счет бонусных рублей)      |
                                       | `BPG`          | BPG - Гарантия Лучшей Цены (снижение цены на товар до минимльной на рынке) |
                                       | `BPG20`        | аналогично BPG                                                             |
-
+                                    example: "BPG"
                                   discountAmount:
                                     type: string
                                     description: Сумма скидки
+                                    example: "250.0"
                         label:
                           type: object
                           description: Информация для печати маркировочного листа
@@ -177,27 +189,35 @@ paths:
                             deliveryId:
                               type: string
                               description: Индентификатор доставки. Печатается на маркировочном листе
+                              example: "987654321"
                             region:
                               type: string
                               description: Регион адреса получателя. Печатается на маркировочном листе
+                              example: ""
                             city:
                               type: string
                               description: Город адреса получателя. Печатается на маркировочном листе
+                              example: "Москва"
                             address:
                               type: string
                               description: Адрес получателя. Печатается на маркировочном листе
+                              example: "ул. Самокатная 6/2 кв. 26"
                             buyerFullName:
                               type: string
                               description: ФИО получателя. Печатается на маркировочном листе
+                              example: "Заваров Константин Викторович"
                             merchantId:
                               type: string
                               description: Уникальный идентификатор продавца. Печатается на маркировочном листе
+                              example: "7"
                             merchantName:
                               type: string
                               description: Юр. наименование продавца. Печатается на маркировочном листе
+                              example: "ООО М.Видео"
                             labelText:
                               type: string
                               description: Шаблон маркировочного листа в формате HTML
+                              example: "<html>...</html>"
                         shipping:
                           type: object
                           description: Дополнительная информация об отгрузке
@@ -205,6 +225,9 @@ paths:
                             shippingDate:
                               type: string
                               description: Максимально возможный срок на отгрузку заказа продавцом. Если заказ НЕ будет отгружен до указанного срока, то он считается отмененным продавцом (взымается штрафная комиссия)
+                              example: "2017-07-26T15:48:00+03:00"
+                  responses:
+                    200:
 
   /orders/{id}:
     get:
