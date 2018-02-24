@@ -130,6 +130,7 @@ paths:
                         shipmentId:
                           type: string
                           description: Уникальный идентификатор заказа Goods
+                          example: 894554545
                         shipmentDate:
                           type: string
                           description: Дата и время создания заказа
