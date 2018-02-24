@@ -1,6 +1,6 @@
 swagger: "2.0"
 info:
-  version: "1.2"
+  version: "2.0"
   title: Партнерский API goods
   contact:
     name: Константин Заваров
@@ -8,7 +8,7 @@ info:
     url: https://goods.ru
 host: partner.goods.ru
 
-basePath: /api/v4
+basePath: /api/market/v2/orderService/
 schemes:
   - https
 consumes:
@@ -102,81 +102,122 @@ paths:
             properties:
               meta:
                 type: object
+                required: true
                 description: Блок вспомогательных данных
               data:
                 type: object
+                required: true
                 description: Блок информационных данных
                 properties:
                   token:
                     type: string
+                    required: true
                     description: Аутентификационный токен
                   shopments:
                     type: array
+                    required: true
                     description: Список заказов
                     items:
                       type: object
+                      required: true
                       properties:
                         shipmentId:
                           type: string
+                          required: true
                           description: Уникальный идентификатор заказа Goods
                         shipmentDate:
                           type: string
+                          required: true
                           description: Дата и время создания заказа
                         items:
                           type: array
+                          required: true
                           description: Список позиций в заказе
                           items: 
                             type: object
                             properties:
                               itemIndex:
                                 type: string
+                                required: true
                                 description: Уникальный номер позиции в рамках заказа, нумерация начинается с 0
                               offerId:
                                 type: string
+                                required: true
                                 description: Идентификатор оффера (товарного предложения) продавца передаваемый в прайс-листе в параметре id элемента <offer>
                               price:
                                 type: string
+                                required: true
                                 description: Цена позиции из прайс-листа продавца
                               finalPrice:
                                 type: string
                                 description: Цена позиции за вычетом всех скидок
                               discounts:
                                 type: object
+                                required: true
                                 description: Список примененных скидок к текущей позиции
                                 properties:
                                   discountType:
                                     type: string
-                                    description: Тип скидки. Возможные значения = LOY - Программа Лояльности (снижение цены на товар за счет бонусных рублей); BPG - Гарантия Лучшей Цены (снижение цены на товар до минимльной на рынке)
+                                    required: true
+                                    description: |
+                                      Тип скидки. Возможные значения = LOY - Программа Лояльности (снижение цены на товар за счет бонусных рублей); BPG - Гарантия Лучшей Цены (снижение цены на товар до минимльной на рынке)
+                                      
+                                      |    Значание    |               Описание                                                     |
+                                      | :------------- | :------------------------------------------------------------------------- |
+                                      | `LOY`          | Программа Лояльности (снижение цены на товар за счет бонусных рублей)      |                         |
+                                      | `BPG`          | BPG - Гарантия Лучшей Цены (снижение цены на товар до минимльной на рынке) |
+                                      | `BPG20`        | аналогично BPG                                                             |
+
                                   discountAmount:
                                     type: string
+                                    required: true
                                     description: Сумма скидки
                         label:
                           type: object
+                          required: true
                           description: Информация для печати маркировочного листа
                           properties:
                             deliveryId:
                               type: string
+                              required: true
                               description: Индентификатор доставки. Печатается на маркировочном листе
-
-      responses:
-        201:
-          $ref: "#/responses/OrderCreatedResponse"
-        422:
-          $ref: "#/responses/ValidationErrorResponse"
-
-    get:
-      tags:
-        - Заказы
-      summary: Cписок заказов
-      parameters:
-        - $ref: "#/parameters/includeInOrder"
-        - $ref: "#/parameters/filterInOrder"
-        - $ref: "#/parameters/sortCollection"
-        - $ref: "#/parameters/pageNumber"
-        - $ref: "#/parameters/perPage"
-      responses:
-        200:
-          $ref: "#/responses/OrderCollectionResponse"
+                            region:
+                              type: string
+                              required: true
+                              description: Регион адреса получателя. Печатается на маркировочном листе
+                            city:
+                              type: string
+                              required: true
+                              description: Город адреса получателя. Печатается на маркировочном листе
+                            address:
+                              type: string
+                              required: true
+                              description: Адрес получателя. Печатается на маркировочном листе
+                            buyerFullName:
+                              type: string
+                              required: true
+                              description: ФИО получателя. Печатается на маркировочном листе
+                            merchantId:
+                              type: string
+                              required: true
+                              description: Уникальный идентификатор продавца. Печатается на маркировочном листе
+                            merchantName:
+                              type:
+                              required: true
+                              description: Юр. наименование продавца. Печатается на маркировочном листе
+                            labelText:
+                              type: string
+                              required: true
+                              description: Шаблон маркировочного листа в формате HTML
+                        shipping:
+                          type: object
+                          required: true
+                          description: Дополнительная информация об отгрузке
+                          properties:
+                            shippingDate:
+                              type: string
+                              required: true
+                              description: Максимально возможный срок на отгрузку заказа продавцом. Если заказ НЕ будет отгружен до указанного срока, то он считается отмененным продавцом (взымается штрафная комиссия)
 
   /orders/{id}:
     get:
