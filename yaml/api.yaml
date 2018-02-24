@@ -226,8 +226,38 @@ paths:
           examples:
             application/json:
               data:
+                id: d41d8cd98f00b204e9800998ecf8427e
+                type: reviews
                 attributes:
-                  token: 53aa3d6a-baf6-4787-8e8c-b54bc2609b8d
+                  pros: Одни преимущества
+                  cons: Отсутствуют
+                  body: Спасибо за платье! Отлично держит, приятное к телу, в общем супер! Завтра приеду за еще одним платьем! А может и двумя! Впереди юбилей и очередная свадьба))))) Спасибо большое! Буду заказывать еще обязательно!"
+                  rating: 5
+                  external_id: review-34772
+                  created_at: 2016-04-12T23:20:50.52Z
+                  updated_at: 2016-04-12T23:20:50.52Z
+                  author_name: Варвара Пуговицина
+                  author_email: varvara@pugovica.ru
+                  origin: omnibox
+                  recommended: true
+                  product_id: 444772
+                  photos:
+                    - https://shoppilot-ugc-media.s3.amazonaws.com/media_files/57d8/6f47/8ddf/872b/3a09/ec00/large.jpg?1473802054
+                  tags:
+                    - Featured
+                  custom_attributes:
+                    region: 66
+                  location_name: Екатеринбург
+                  relationships:
+                    author:
+                      data:
+                        id: d41d8cd98f00b204e9800998ecf8427e
+                        type: consumers
+                    product:
+                      data:
+                        id: 359da16916eebd1cc0a0884b3bad4f6d
+                        type: products
+                    comments: []
 
   /orders/{id}:
     get:
