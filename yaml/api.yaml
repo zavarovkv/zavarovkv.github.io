@@ -94,6 +94,16 @@ paths:
       tags:
         - Управление заказами
       summary: Создание заказа
+      description: |
+        `Метод вызывается goods` после оформления нового заказа покупателем на сайте. 
+        Предназначен для передачи созданного заказа в систему обработки заказов продавца.
+
+        Информация передаваемая продавцу по заказу включает:
+        
+        * детальную информацию по каждой позиции в заказе;
+        * информацию для печати маркировочного листа ([подробнее о маркировочном листе]);
+        * максимально возможный срок отгрузки заказа.
+      
       parameters:
         - in: body
           name: body
@@ -106,7 +116,6 @@ paths:
                 description: Блок вспомогательных данных
               data:
                 type: object
-                required: true
                 description: Блок информационных данных
                 properties:
                   token:
@@ -131,7 +140,6 @@ paths:
                           description: Дата и время создания заказа
                         items:
                           type: array
-                          required: true
                           description: Список позиций в заказе
                           items: 
                             type: object
@@ -173,7 +181,6 @@ paths:
                                     description: Сумма скидки
                         label:
                           type: object
-                          required: true
                           description: Информация для печати маркировочного листа
                           properties:
                             deliveryId:
@@ -210,13 +217,17 @@ paths:
                               description: Шаблон маркировочного листа в формате HTML
                         shipping:
                           type: object
-                          required: true
                           description: Дополнительная информация об отгрузке
                           properties:
                             shippingDate:
                               type: string
                               required: true
                               description: Максимально возможный срок на отгрузку заказа продавцом. Если заказ НЕ будет отгружен до указанного срока, то он считается отмененным продавцом (взымается штрафная комиссия)
+              examples:
+                application/json:
+                  data:
+                    attributes:
+                      token: 53aa3d6a-baf6-4787-8e8c-b54bc2609b8d
 
   /orders/{id}:
     get:
