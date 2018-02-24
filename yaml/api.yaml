@@ -265,6 +265,9 @@ paths:
           name: body
           schema:
             type: object
+            required:
+              - meta
+              - data
             properties:
               meta:
                 type: object
@@ -272,12 +275,20 @@ paths:
               data:
                 type: object
                 description: Блок информационных данных
+                required:
+                  - shipments
                 properties:
                   shipments:
                     type: array
                     description: Список заказов
+                    required:
+                      - items
                     items:
                       type: object
+                      required:
+                        - shipmentId
+                        - orderCode
+                        - items
                       properties:
                         shipmentId:
                           type: string
@@ -292,6 +303,9 @@ paths:
                           description: Перечень позиций в заказа (для подтверждения)
                           items:
                             type: object
+                            required:
+                              - itemIndex
+                              - shippingDate
                             properties:
                               itemIndex: 
                                 type: string
@@ -313,24 +327,4 @@ paths:
                 type: integer
                 description: Результат выполнения операции
                 example: 1
-        201:
-          description: Заказ не подтвержден
-          schema:
-            type: object
-            properties:
-              success:
-                type: integer
-                description: Результат выполнения операции
-                example: 0
-              error:
-                type: object
-                description: Блок с описанием ошибки
-                properties:
-                  message:
-                    type: string
-                    description: Описание ошибки
-                    example: "No valid token"
-                  code:
-                    type: string
-                    description: Код ошибки
-                    example: "0"
+
