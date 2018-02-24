@@ -120,12 +120,19 @@ paths:
               data:
                 type: object
                 description: Блок информационных данных
+                required:
+                  - shipments
                 properties:
                   shipments:
                     type: array
                     description: Список заказов
                     items:
                       type: object
+                      required:
+                        - shipmentId
+                        - shipmentDate
+                        - items
+                        - label
                       properties:
                         shipmentId:
                           type: string
@@ -140,6 +147,11 @@ paths:
                           description: Список позиций в заказе
                           items: 
                             type: object
+                            required:
+                              - itemIndex
+                              - offerId
+                              - price
+                              - finalPrice
                             properties:
                               itemIndex:
                                 type: string
@@ -179,6 +191,15 @@ paths:
                         label:
                           type: object
                           description: Информация для печати маркировочного листа
+                          required:
+                            - deliveryId
+                            - region
+                            - city
+                            - address
+                            - buyerFullName
+                            - merchantId
+                            - nerchantName
+                            - labelText
                           properties:
                             deliveryId:
                               type: string
@@ -215,6 +236,8 @@ paths:
                         shipping:
                           type: object
                           description: Дополнительная информация об отгрузке
+                          required:
+                           - shippingDate
                           properties:
                             shippingDate:
                               type: string
