@@ -253,6 +253,9 @@ paths:
                 type: object
                 description: Блок информационных данных
                 properties:
+                  name:
+                    type: string
+                    description: ffasfas
 
 
   /orders/{id}:
