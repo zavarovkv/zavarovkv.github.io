@@ -112,7 +112,6 @@ paths:
             properties:
               meta:
                 type: object
-                required: true
                 description: Блок вспомогательных данных
               data:
                 type: object
@@ -120,23 +119,18 @@ paths:
                 properties:
                   token:
                     type: string
-                    required: true
                     description: Аутентификационный токен
                   shopments:
                     type: array
-                    required: true
                     description: Список заказов
                     items:
                       type: object
-                      required: true
                       properties:
                         shipmentId:
                           type: string
-                          required: true
                           description: Уникальный идентификатор заказа Goods
                         shipmentDate:
                           type: string
-                          required: true
                           description: Дата и время создания заказа
                         items:
                           type: array
@@ -146,15 +140,12 @@ paths:
                             properties:
                               itemIndex:
                                 type: string
-                                required: true
                                 description: Уникальный номер позиции в рамках заказа, нумерация начинается с 0
                               offerId:
                                 type: string
-                                required: true
                                 description: Идентификатор оффера (товарного предложения) продавца передаваемый в прайс-листе в параметре id элемента <offer>
                               price:
                                 type: string
-                                required: true
                                 description: Цена позиции из прайс-листа продавца
                               finalPrice:
                                 type: string
@@ -165,7 +156,6 @@ paths:
                                 properties:
                                   discountType:
                                     type: string
-                                    required: true
                                     description: |
                                       Тип скидки.
                                       
@@ -177,7 +167,6 @@ paths:
 
                                   discountAmount:
                                     type: string
-                                    required: true
                                     description: Сумма скидки
                         label:
                           type: object
@@ -185,35 +174,27 @@ paths:
                           properties:
                             deliveryId:
                               type: string
-                              required: true
                               description: Индентификатор доставки. Печатается на маркировочном листе
                             region:
                               type: string
-                              required: true
                               description: Регион адреса получателя. Печатается на маркировочном листе
                             city:
                               type: string
-                              required: true
                               description: Город адреса получателя. Печатается на маркировочном листе
                             address:
                               type: string
-                              required: true
                               description: Адрес получателя. Печатается на маркировочном листе
                             buyerFullName:
                               type: string
-                              required: true
                               description: ФИО получателя. Печатается на маркировочном листе
                             merchantId:
                               type: string
-                              required: true
                               description: Уникальный идентификатор продавца. Печатается на маркировочном листе
                             merchantName:
                               type: string
-                              required: true
                               description: Юр. наименование продавца. Печатается на маркировочном листе
                             labelText:
                               type: string
-                              required: true
                               description: Шаблон маркировочного листа в формате HTML
                         shipping:
                           type: object
@@ -221,43 +202,11 @@ paths:
                           properties:
                             shippingDate:
                               type: string
-                              required: true
                               description: Максимально возможный срок на отгрузку заказа продавцом. Если заказ НЕ будет отгружен до указанного срока, то он считается отмененным продавцом (взымается штрафная комиссия)
           examples:
             application/json:
               data:
-                id: d41d8cd98f00b204e9800998ecf8427e
-                type: reviews
-                attributes:
-                  pros: Одни преимущества
-                  cons: Отсутствуют
-                  body: Спасибо за платье! Отлично держит, приятное к телу, в общем супер! Завтра приеду за еще одним платьем! А может и двумя! Впереди юбилей и очередная свадьба))))) Спасибо большое! Буду заказывать еще обязательно!"
-                  rating: 5
-                  external_id: review-34772
-                  created_at: 2016-04-12T23:20:50.52Z
-                  updated_at: 2016-04-12T23:20:50.52Z
-                  author_name: Варвара Пуговицина
-                  author_email: varvara@pugovica.ru
-                  origin: omnibox
-                  recommended: true
-                  product_id: 444772
-                  photos:
-                    - https://shoppilot-ugc-media.s3.amazonaws.com/media_files/57d8/6f47/8ddf/872b/3a09/ec00/large.jpg?1473802054
-                  tags:
-                    - Featured
-                  custom_attributes:
-                    region: 66
-                  location_name: Екатеринбург
-                  relationships:
-                    author:
-                      data:
-                        id: d41d8cd98f00b204e9800998ecf8427e
-                        type: consumers
-                    product:
-                      data:
-                        id: 359da16916eebd1cc0a0884b3bad4f6d
-                        type: products
-                    comments: []
+                token: d41d8cd98f00b204e9800998ecf8427e
 
   /orders/{id}:
     get:
