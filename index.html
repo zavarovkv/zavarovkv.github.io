@@ -249,6 +249,14 @@
 
 <p>После физической отгрузки товара курьеру логистической службы goods, продавец передает об этом информацию через вызов метода <a href="/api.html#tag/Upravlenie-zakazami%2Fpaths%2F~1order~1shipping%2Fpost"><mark>POST order/shipping</mark></a>.</p>
 
+<ol>
+	<li>Отгрузка заказа должна быть выполнена продавцом <strong>до окончания времени на отгрузку заказа</strong> (передается в запросе <a href="/api.html#tag/Upravlenie-zakazami%2Fpaths%2F~1order~1new%2Fpost"><mark>POST order/new</mark></a> в элементе <code>shippingDate</code>.</li>
+	<li>Продавец должен передать в вызове метода <a href="/api.html#tag/Upravlenie-zakazami%2Fpaths%2F~1order~1shipping%2Fpost"><mark>POST order/shipping</mark></a> номера отгруженных грузовых мест.</li>
+	<li>Решение об отгрузке ожидается по каждому грузовому месту в заказе.</li>
+</ol>
+
+<figure><img src="img-7.jpg"/></figure>
+
 <a name="step4_example"></a>
 <h4>4.3 Примеры вызовов API</h4>
 
@@ -265,6 +273,8 @@
 
 <a name="yml"></a>
 <h2>Загрузка прайс-листа в формате YML</h2>
+
+<hr />
 
 <a name="label_info"></a>
 <h2>Требования к маркировочному листу</h2>
