@@ -7,22 +7,29 @@
 		<title>Документация по партнерскому API gds</title>
 	</head>
 <body>
-<h1>Документация по партнерскому API g<img src="/img/logo-1.png"/><img src="/img/logo-2.png"/>ds</h1>
+<h1>Документация по партнерскому API g<img src="img/logo-1.png"/><img src="img/logo-2.png"/>ds</h1>
 
 <h1></h1>
 
-<p>Партнерский API предназначен для автоматизированного обмена данными между продавцами и goods. API делает работу с заказами удобнее: операторы будут тратить меньше времени на обработку заказов.</p>
+<p><strong>Партнерский API </strong>— это протокол взаимодействия между учетной системой продавца и goods.</p>
+
+<p>Начать работу с goods и обрабатывать заказы вы можете через личный кабинет продавца, который выдается после регистрации. Но, когда кол-во заказов превысит несколько десятков в день — их ручная обработка становится нецелесообразной. В этом случае API является основной рабочей схемой взаимодействия.</p>
+
+<p><strong>Интеграция по API позволит</strong>:</p>
+
+<ul>
+	<li>экономить время сотрудника магазина и деньги на оплату их труда: операторы будут тратить меньше времени на обработку заказов;</li>
+	<li>ускорить обработку заказов.</li>
+</ul>
 
 <p>Для подготовки API вам понадобится помощь разработчика.</p>
 
-<p>Чтобы не тратить время, при подключении вы можете выбрать работу с заказами в личном кабинете, а затем перейти на API.</p>
-
-<p>Документ предназначен для разработчиков приложений. В документе приведены примеры запросов и ответов с демонстрационными данными.</p>
+<h4></h4>
 
 <ol>
 	<li><a href="#how_to_connect">Как подключиться по API</a></li>
-	<li><a href="#api">Описание API</a></li>
-	<li><a href="#how_to">Процесс обработки заказов продавцом по API</a>
+	<li><a href="#api_spec">Спецификация API</a></li>
+	<li><a href="#how_to">Сценарий обработки заказов продавцом</a>
 
 		<ul>
 			<li><a href="#step1">Шаг 1 — Размещение товарных предложений на goods</a></li>
@@ -30,6 +37,7 @@
 			<li><a href="#step3">Шаг 3 — Комплектация заказа для отгрузки</a></li>
 			<li><a href="#step4">Шаг 4 — Отгрузка заказа</a></li>
 		</ul></li>
+	<li>Реализация сценария обработки заказа через API</li>
 	<li><a href="#yml">Загрузка прайс-листа в формате YML</a></li>
 	<li><a href="#label_info">Требования к маркировочному листу</a></li>
 	<li><a href="#registry_info">Требования к реестру отгрузки</a></li>
@@ -42,17 +50,17 @@
 <a name="how_to_connect"></a>
 <h2>Как подключиться по API</h2>
 
-<p>Для использования API продавец должен выполнить шаги:</p>
+<p>Для использования API выполните следующие шаги:</p>
 
-<p><code>Шаг 1</code> — <a href="https://goods.ru/inviteshop/">Зарегистрируйтесь в goods</a> и получите доступ к <a href="partner.goods.ru">личному кабинету продавца</a></p>
+<p><code>Шаг 1</code> — <a href="https://goods.ru/inviteshop/">Зарегистрируйтесь в goods</a> и получите доступ к <a href="https://partner.goods.ru/merchant-app/account/api-integration">личному кабинету продавца</a></p>
 
-<figure><img src="/img/img-1.jpg" alt="Рис. 1 — Регистрация нового магазина в goods"/><figcaption>Рис. 1 — Регистрация нового магазина в goods</figcaption></figure>
+<figure><img src="img/img-1.jpg" alt="Рис. 1 — Регистрация нового магазина в goods"/><figcaption>Рис. 1 — Регистрация нового магазина в goods</figcaption></figure>
 
 <p><code>Шаг 2</code> — Настройте интеграцию по API в <a href="https://partner.goods.ru/merchant-app/account/api-integration">личном кабинете</a></p>
 
 <p><code>Шаг 3</code> — Получите авторизационный токен в <a href="https://partner.goods.ru/merchant-app/account/api-integration">личном кабинете</a></p>
 
-<figure><img src="/img/img-2.jpg" alt="Рис. 2 — Настройка интеграции в личном кабинете продавца"/><figcaption>Рис. 2 — Настройка интеграции в личном кабинете продавца</figcaption></figure>
+<figure><img src="img/img-2.jpg" alt="Рис. 2 — Настройка интеграции в личном кабинете продавца"/><figcaption>Рис. 2 — Настройка интеграции в личном кабинете продавца</figcaption></figure>
 
 <p><code>Шаг 4</code> — Получите уникальный идентификатор магазина (у менеджеров goods)</p>
 
@@ -60,10 +68,10 @@
 
 <hr />
 
-<a name="api"></a>
-<h2>Описание API</h2>
+<a name="api_spec"></a>
+<h2>Спецификация API</h2>
 
-<p>Подробная спецификация доступна по <a href="/api.html">ссылке</a></p>
+<p>Подробная спецификация доступна по <a href="api.html">ссылке</a></p>
 
 <a name="methods"></a>
 <h3>Справочник методов</h3>
@@ -71,10 +79,10 @@
 <h4>Запросы к goods</h4>
 
 <ul>
-	<li><a href="/api.html#tag/Upravlenie-zakazami%2Fpaths%2F~1order~1confirm%2Fpost"><mark><strong>POST</strong> /order/confirm</mark></a> — подтверждение заказа</li>
-	<li><a href="/api.html#tag/Upravlenie-zakazami%2Fpaths%2F~1order~1packing%2Fpost"><mark><strong>POST</strong> /order/packing</mark></a> — комплектация заказа</li>
-	<li><a href="/api.html#tag/Upravlenie-zakazami%2Fpaths%2F~1order~1shipping%2Fpost"><mark><strong>POST</strong> /order/shipping</mark></a> — отгрузка заказа</li>
-	<li><a href="/api.html#tag/Upravlenie-zakazami%2Fpaths%2F~1order~1reject%2Fpost"><mark><strong>POST</strong> /order/reject</mark></a> — отмена заказа <strong>продавцом</strong></li>
+	<li><a href="api.html#tag/Upravlenie-zakazami%2Fpaths%2F~1order~1confirm%2Fpost"><mark><strong>POST</strong> /order/confirm</mark></a> — подтверждение заказа</li>
+	<li><a href="api.html#tag/Upravlenie-zakazami%2Fpaths%2F~1order~1packing%2Fpost"><mark><strong>POST</strong> /order/packing</mark></a> — комплектация заказа</li>
+	<li><a href="api.html#tag/Upravlenie-zakazami%2Fpaths%2F~1order~1shipping%2Fpost"><mark><strong>POST</strong> /order/shipping</mark></a> — отгрузка заказа</li>
+	<li><a href="api.html#tag/Upravlenie-zakazami%2Fpaths%2F~1order~1reject%2Fpost"><mark><strong>POST</strong> /order/reject</mark></a> — отмена заказа <strong>продавцом</strong></li>
 	<li><a href="#"><mark><strong>POST</strong> /order/search</mark></a> — получение списка заказов, удовлетворяющих заданному фильтру</li>
 	<li><a href="#"><mark><strong>POST</strong> /order/get</mark></a> — получение детальной информации по заказу</li>
 </ul>
@@ -82,19 +90,51 @@
 <h4>Запросы к продавцу</h4>
 
 <ul>
-	<li><a href="/api.html#tag/Upravlenie-zakazami%2Fpaths%2F~1order~1new%2Fpost"><mark><strong>POST</strong> /order/new</mark></a> — создание заказа</li>
-	<li><a href="/api.html#tag/Upravlenie-zakazami%2Fpaths%2F~1order~1cancel%2Fpost"><mark><strong>POST</strong> /order/cancel</mark></a> — отмена заказа <strong>покупателем</strong></li>
+	<li><a href="api.html#tag/Upravlenie-zakazami%2Fpaths%2F~1order~1new%2Fpost"><mark><strong>POST</strong> /order/new</mark></a> — создание заказа</li>
+	<li><a href="api.html#tag/Upravlenie-zakazami%2Fpaths%2F~1order~1cancel%2Fpost"><mark><strong>POST</strong> /order/cancel</mark></a> — отмена заказа <strong>покупателем</strong></li>
 	<li><a href="#"><mark><strong>POST</strong> /order/labelUpdate</mark></a> — изменение маркировочного листа</li>
 </ul>
 
 <hr />
 
 <a name="how_to"></a>
-<h2>Процесс обработки заказов продавцом по API</h2>
+<h2>Сценарий обработки заказов продавцом</h2>
 
-<p>Продавец публикует товарные предложения на goods через прайс-лист в формате YML. Покупатель заинтересовавшись выгодным предложением оформляет заказ. После получения заказа продавец подтверждает возможность его отгрузки в указанные сроки, выполняет комплектацию и отгрузку. Базовый сценарий вызовов API-методов изображен ниже.</p>
+<p><strong> Шаг 1 — Размещение товарных предложений на goods</strong></p>
 
-<figure><img src="/img/img-3.jpg" alt="Рис. 3 — Последовательность обращений по API (базовый сценарий)"/><figcaption>Рис. 3 — Последовательность обращений по API (базовый сценарий)</figcaption></figure>
+<p>Размещение товарных предложений для продажи на маркетплейсе goods выполняется через формирование прайс-лист в формате <code>YML</code> продавцом (<a href="#yml">подробнее о прайс-листе</a>), в котором <strong>должна поддерживаться актуальность</strong> следующей информации:</p>
+
+<ul>
+	<li>характеристики и описание товаров;
+
+		<ul>
+			<li>цены;</li>
+			<li>стоки;</li>
+			<li>сроки отгрузки.</li>
+		</ul></li>
+</ul>
+
+<p>Покупатель заинтересовавшись выгодным предложением оформляет заказ на goods. Далее заказ передается продавцу через интерфейс личного кабинета или по API.</p>
+
+<h2></h2>
+
+<p><strong> Шаг 2 — Подтверждение нового заказа</strong></p>
+
+<p>Продавец, получив новый заказ от goods <strong>должен удостовериться</strong>, что по товарам имеются положительные остатки на складе и заказ может быть отгружен в указанный срок. Подтвердить принятие заказа в личном кабинете продавца (или по API) в течение <strong>3 часов</strong> с момента получения заказа. По результатам подтверждения заказа, клиент получит СМС-уведомление.</p>
+
+<h4></h4>
+
+<p>Если часть товаров отсутствует на складе (или все товары в заказе), то необходимо отклонить принятие отсутствующих товаров (всех или части) с обязательным указанием причины отмены.</p>
+
+<h4></h4>
+
+<p><strong>Важно:</strong> за подтверждение товаров в заказе, которые не смогут быть отгружены в будущем, взымается повышенная комиссия.</p>
+
+<ol>
+	<li>После получения заказа продавец подтверждает возможность его отгрузки в указанные сроки, выполняет комплектацию и отгрузку. Базовый сценарий вызовов API-методов изображен ниже.</li>
+</ol>
+
+<figure><img src="img/img-3.jpg" alt="Рис. 3 — Последовательность обращений по API (базовый сценарий)"/><figcaption>Рис. 3 — Последовательность обращений по API (базовый сценарий)</figcaption></figure>
 
 <p>Рассмотрим выполнение каждого из шагов более детально.</p>
 
@@ -140,11 +180,11 @@
 
 <p>Рассмотрим пример, когда покупатель оформляет заказ состоящий из трех позиций: <em>телефон</em>, <em>планшет</em>, <em>корм для питомца</em>. <em>Телефон</em> и <em>планшет</em> покупается у <em>’Продавец 1’</em>, а <em>корм для питомца</em> у <em>’Продавец 2’</em>. Goods сообщает каждому продавцу про его часть заказа.</p>
 
-<figure><img src="/img/img-4.jpg" alt="Рис. 4 — Процесс оформления нового заказа покупателем на goods"/><figcaption>Рис. 4 — Процесс оформления нового заказа покупателем на goods</figcaption></figure>
+<figure><img src="img/img-4.jpg" alt="Рис. 4 — Процесс оформления нового заказа покупателем на goods"/><figcaption>Рис. 4 — Процесс оформления нового заказа покупателем на goods</figcaption></figure>
 
 <p>Продавец, получив новый заказ от goods проверяет доступное кол-во остатков по каждой позиции в заказе и дает свое согласие об отгрузке заказа в указанный срок.</p>
 
-<figure><img src="/img/img-5.jpg" alt="Рис. 5 — Процесс оформления нового заказа покупателем на goods"/><figcaption>Рис. 5 — Процесс оформления нового заказа покупателем на goods</figcaption></figure>
+<figure><img src="img/img-5.jpg" alt="Рис. 5 — Процесс оформления нового заказа покупателем на goods"/><figcaption>Рис. 5 — Процесс оформления нового заказа покупателем на goods</figcaption></figure>
 
 <a name="step2_api"></a>
 <h4>2.2 Последовательность обращений по API</h4>
@@ -162,7 +202,7 @@
 		<p>По результатам подтверждения заказа, клиент получит СМС-уведомление о подтверждении заказа продавцом.</p></li>
 </ol>
 
-<figure><img src="/img/img-6.jpg" alt="Рис. 6 — Последовательность обращений по API при подтверждении заказа продавцом"/><figcaption>Рис. 6 — Последовательность обращений по API при подтверждении заказа продавцом</figcaption></figure>
+<figure><img src="img/img-6.jpg" alt="Рис. 6 — Последовательность обращений по API при подтверждении заказа продавцом"/><figcaption>Рис. 6 — Последовательность обращений по API при подтверждении заказа продавцом</figcaption></figure>
 
 <a name="step2_examples"></a>
 <h4>2.3 Примеры вызовов API</h4>
@@ -200,7 +240,7 @@
 
 <p>Продавец сообщает goods об успешной комплектации заказа для того, чтобы goods смог передать информацию о заказе на Сортировочный Центр. После завершения комплектации заказ ожидает отгрузки на складе продавца.</p>
 
-<figure><img src="/img/img-7.jpg" alt="Рис. 7 — Процесс комплектации (сборки и упаковки) заказа продавцом"/><figcaption>Рис. 7 — Процесс комплектации (сборки и упаковки) заказа продавцом</figcaption></figure>
+<figure><img src="img/img-7.jpg" alt="Рис. 7 — Процесс комплектации (сборки и упаковки) заказа продавцом"/><figcaption>Рис. 7 — Процесс комплектации (сборки и упаковки) заказа продавцом</figcaption></figure>
 
 <a name="step3_api"></a>
 <h4>3.2 Последовательность обращений по API</h4>
@@ -217,7 +257,7 @@
 	<li>Решение о комплектации ожидается по каждому товару в заказе. Сообщается вызовом методов <a href="/api.html#tag/Upravlenie-zakazami%2Fpaths%2F~1order~1packing%2Fpost"><mark>POST order/packing</mark></a> и <a href="/api.html#tag/Upravlenie-zakazami%2Fpaths%2F~1order~1reject%2Fpost"><mark>POST order/reject</mark></a>.</li>
 </ol>
 
-<figure><img src="/img/img-8.jpg" alt="Рис. 8 — Последовательность обращений по API при комплектации заказа продавцом"/><figcaption>Рис. 8 — Последовательность обращений по API при комплектации заказа продавцом</figcaption></figure>
+<figure><img src="img/img-8.jpg" alt="Рис. 8 — Последовательность обращений по API при комплектации заказа продавцом"/><figcaption>Рис. 8 — Последовательность обращений по API при комплектации заказа продавцом</figcaption></figure>
 
 <a name="step3_example"></a>
 <h4>3.3 Примеры вызовов API</h4>
@@ -255,7 +295,7 @@
 
 <p>На Сортировочном Центре выполняется объединение заказов от разных продавцов в единый заказ для покупателя. В согласованное с покупателем время заказ доставляется покупателю.</p>
 
-<figure><img src="/img/img-9.jpg" alt="Рис. 9 — Процесс отгрузки заказа продавцами и доставка покупателю"/><figcaption>Рис. 9 — Процесс отгрузки заказа продавцами и доставка покупателю</figcaption></figure>
+<figure><img src="img/img-9.jpg" alt="Рис. 9 — Процесс отгрузки заказа продавцами и доставка покупателю"/><figcaption>Рис. 9 — Процесс отгрузки заказа продавцами и доставка покупателю</figcaption></figure>
 
 <a name="step4_api"></a>
 <h4>4.2 Последовательность обращений по API</h4>
@@ -268,7 +308,7 @@
 	<li>Решение об отгрузке ожидается по каждому грузовому месту в заказе.</li>
 </ol>
 
-<figure><img src="/img/img-10.jpg" alt="Рис. 10 — Последовательность обращений по API при отгрузки заказа продавцом"/><figcaption>Рис. 10 — Последовательность обращений по API при отгрузки заказа продавцом</figcaption></figure>
+<figure><img src="img/img-10.jpg" alt="Рис. 10 — Последовательность обращений по API при отгрузки заказа продавцом"/><figcaption>Рис. 10 — Последовательность обращений по API при отгрузки заказа продавцом</figcaption></figure>
 
 <a name="step4_example"></a>
 <h4>4.3 Примеры вызовов API</h4>
@@ -287,18 +327,24 @@
 <a name="yml"></a>
 <h2>Загрузка прайс-листа в формате YML</h2>
 
+<blockquote>
+<p><a href="#1">Скачать шаблон YML-файла</a></p>
+</blockquote>
+
+<p>Подробнее про YML-файл: <a href="https://yandex.ru/support/webmaster/goods-prices/technical-requirements.html">https://yandex.ru/support/webmaster/goods-prices/technical-requirements.html</a></p>
+
 <hr />
 
 <a name="label_info"></a>
 <h2>Требования к маркировочному листу</h2>
 
 <blockquote>
-<p><a href="/templates/label.html">Скачать шаблон маркировочного листа</a></p>
+<p><a href="templates/label.html">Скачать шаблон маркировочного листа</a></p>
 </blockquote>
 
 <p>Маркировочный лист наклеивается на грузовое место в момент комплектации заказа. Изображение маркировочного листа и описание см. ниже.</p>
 
-<figure><img src="/img/img-11.jpg" alt="Рис. 11 — Пример маркировочного листа"/><figcaption>Рис. 11 — Пример маркировочного листа</figcaption></figure>
+<figure><img src="img/img-11.jpg" alt="Рис. 11 — Пример маркировочного листа"/><figcaption>Рис. 11 — Пример маркировочного листа</figcaption></figure>
 
 <ol>
 	<li><strong>Штрих-код в формате Code 128</strong> (<a href="https://ru.wikipedia.org/wiki/Code_128">подробнее о формате</a>)
@@ -359,7 +405,7 @@
 
 <p>Реестр отгрузки передается продавцом курьеру логистической службы вместе с грузовыми местами. Реестр должен содержать перечень всех передаваемых курьеру грузовых мест. Изображение реестра отгрузки и описание полей см. ниже.</p>
 
-<figure><img src="/img/img-12.jpg" alt="Рис. 12 — Пример реестра отгрузки"/><figcaption>Рис. 12 — Пример реестра отгрузки</figcaption></figure>
+<figure><img src="img/img-12.jpg" alt="Рис. 12 — Пример реестра отгрузки"/><figcaption>Рис. 12 — Пример реестра отгрузки</figcaption></figure>
 
 <ol>
 	<li><strong>Номер доставки</strong>
